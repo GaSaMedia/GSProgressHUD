@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.social_media_url = "https://twitter.com/gasamedia"
 
   s.platform     = :ios, '5.0'
-  
+
   s.source       = { :git => "https://github.com/GaSaMedia/GSProgressHUD.git", :tag => "0.1" }
 
   s.source_files  = 'GSProgressHUD', 'GSProgressHUD/GSProgressHUD.{h,m}'
