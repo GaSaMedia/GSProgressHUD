@@ -6,6 +6,13 @@ GSProgressHUD is a simple lightweight progress HUD based on [SVProgressHUD](http
 
 - [Download GSProgressHUD](https://github.com/GaSaMedia/GSProgressHUD/archive/master.zip)
 
+#### Podfile
+
+```ruby
+platform :ios
+pod "GSProgressHUD"
+```
+
 ## Requirements
 
 GSProgressHUD requires Xcode 4/5, targeting iOS 5.0 and above.
