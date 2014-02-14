@@ -12,7 +12,11 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, '5.0'
   
+<<<<<<< HEAD
   s.source       = { :git => "https://github.com/GaSaMedia/GSProgressHUD.git", :tag => "0.1" }
+=======
+  s.source       = { :git => "https://github.com/GaSaMedia/GSProgressHUD.git", :tag => "1.0" }
+>>>>>>> dbeb68bab3674c9733be826f2bdfcc061318c5e3
 
   s.source_files  = 'GSProgressHUD', 'GSProgressHUD/GSProgressHUD.{h,m}'
   
