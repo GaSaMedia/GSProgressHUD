@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0D61032A-1478-43F3-B093-AEFD776B144C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>GSProgressHUDExampleApp</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>FFAA9DE1-FDE5-4611-8F99-67626F983C26</key>
+		<string>ssh://github.com/GaSaMedia/GSProgressHUD.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Example/GSProgressHUDExampleApp.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>FFAA9DE1-FDE5-4611-8F99-67626F983C26</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/GaSaMedia/GSProgressHUD.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>FFAA9DE1-FDE5-4611-8F99-67626F983C26</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>FFAA9DE1-FDE5-4611-8F99-67626F983C26</string>
+			<key>IDESourceControlWCCName</key>
+			<string>GSProgressHUD</string>
+		</dict>
+	</array>
+</dict>
+</plist>
