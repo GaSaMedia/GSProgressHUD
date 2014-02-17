@@ -7,7 +7,7 @@
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="GSViewController" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zBC-fM-Hx3"/>
                         <viewControllerLayoutGuide type="bottom" id="IbO-7F-wnW"/>
@@ -17,13 +17,23 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hd-OY-pRg">
-                                <rect key="frame" x="97" y="336" width="126" height="36"/>
+                                <rect key="frame" x="30" y="340" width="126" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Show">
+                                <state key="normal" title="Show indicator">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="showButtonPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="F2e-7X-Nba"/>
+                                    <action selector="showIndicatorButtonPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="TeF-L5-dEV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3XI-oa-aB6">
+                                <rect key="frame" x="164" y="340" width="126" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Show icon">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showIconButtonPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="GFi-PS-D6z"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Aw-lp-ALe">
@@ -42,7 +52,8 @@
                     </view>
                     <connections>
                         <outlet property="popButton" destination="4Aw-lp-ALe" id="dWV-ZN-60R"/>
-                        <outlet property="showButton" destination="9hd-OY-pRg" id="13W-V9-m4n"/>
+                        <outlet property="showIconButton" destination="3XI-oa-aB6" id="2uX-1p-NNz"/>
+                        <outlet property="showIndicatorButton" destination="9hd-OY-pRg" id="Uyn-VP-LJ2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

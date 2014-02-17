@@ -1,5 +1,5 @@
 //
-//  GSViewController.h
+//  ViewController.h
 //  GSProgressHUDExampleApp
 //
 //  Created by Gard Sandholt on 14/02/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GSViewController : UIViewController
+@interface ViewController : UIViewController
 
 @end

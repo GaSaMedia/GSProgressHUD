@@ -22,7 +22,17 @@
 
 #import <UIKit/UIKit.h>
 
+
+typedef NS_ENUM(NSInteger, GSProgressHUDViewType) {
+    GSProgressHUDViewTypeIndicator,
+    GSProgressHUDViewTypeIcon
+};
+
 @interface GSProgressHUD : UIView
+
+@property (nonatomic) GSProgressHUDViewType currentHUDType;
+
++ (void)show;
 
 + (void)popImage:(UIImage *)image withStatus:(NSString *)status;
 + (void)showImage:(UIImage *)image withStatus:(NSString *)status;

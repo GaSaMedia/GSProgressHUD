@@ -1,26 +1,40 @@
 //
-//  GSViewController.m
+//  ViewController.m
 //  GSProgressHUDExampleApp
 //
 //  Created by Gard Sandholt on 14/02/14.
 //  Copyright (c) 2014 GaSa Media. All rights reserved.
 //
 
-#import "GSViewController.h"
+#import "ViewController.h"
 #import "GSProgressHUD.h"
 
-@interface GSViewController ()
+@interface ViewController ()
 
-@property (strong, nonatomic) IBOutlet UIButton *showButton;
+@property (strong, nonatomic) IBOutlet UIButton *showIndicatorButton;
 @property (strong, nonatomic) IBOutlet UIButton *popButton;
+@property (strong, nonatomic) IBOutlet UIButton *showIconButton;
 
 @end
 
-@implementation GSViewController
+@implementation ViewController
 
 
-- (IBAction)showButtonPressed:(id)sender {
+- (IBAction)showIndicatorButtonPressed:(id)sender {
     
+    UIButton *showBtn = (UIButton *) sender;
+    
+    if ([GSProgressHUD isVisible]) {
+        [GSProgressHUD dismiss];
+        [showBtn setTitle:@"Show" forState:UIControlStateNormal];
+        return;
+    }
+    
+    [GSProgressHUD show];
+    [showBtn setTitle:@"Hide" forState:UIControlStateNormal];
+}
+
+- (IBAction)showIconButtonPressed:(id)sender {
     UIButton *showBtn = (UIButton *) sender;
     
     if ([GSProgressHUD isVisible]) {

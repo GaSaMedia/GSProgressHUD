@@ -31,8 +31,9 @@ static CGFloat const kHUDHeight = 66.f;
 
 @property(nonatomic, strong) UIImageView *statusIcon;
 @property(nonatomic, strong) UILabel *statusLabel;
+@property(nonatomic, strong) UIActivityIndicatorView *activityView;
 
-- (void)show;
+- (void)showType:(GSProgressHUDViewType)viewType;
 - (void)dismiss;
 - (void)popImage:(UIImage *)image withStatus:(NSString *)status;
 - (void)showImage:(UIImage *)image withStatus:(NSString *)status;
@@ -48,6 +49,7 @@ static CGFloat const kHUDHeight = 66.f;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedView = [[GSProgressHUD alloc] initWithFrame:CGRectMake(0.f, 0.f, kHUDWidth, kHUDHeight)];
+        sharedView.currentHUDType = GSProgressHUDViewTypeIndicator;
     });
     return sharedView;
 }
@@ -61,7 +63,7 @@ static CGFloat const kHUDHeight = 66.f;
 }
 
 + (void)show {
-    [[GSProgressHUD sharedView] show];
+    [[GSProgressHUD sharedView] showType:GSProgressHUDViewTypeIndicator];
 }
 
 + (void)dismiss {
@@ -90,7 +92,7 @@ static CGFloat const kHUDHeight = 66.f;
     return self;
 }
 
-- (void)show {
+- (void)showType:(GSProgressHUDViewType)viewType {
     if (!self.superview) {
         NSEnumerator *frontToBackWindows = [[[UIApplication sharedApplication] windows] reverseObjectEnumerator];
         
@@ -104,16 +106,47 @@ static CGFloat const kHUDHeight = 66.f;
     
     self.center = CGPointMake(self.superview.frame.size.width/2.f, self.superview.frame.size.height/2.f);
     
-    // Add imageView
-    if (!self.statusIcon.superview) {
-        [self addSubview:self.statusIcon];
+    // Clear previous added views
+    if (self.statusIcon.superview) {
+        [self.statusIcon removeFromSuperview];
     }
-    // Add statusLabel
-    if (!self.statusLabel.superview) {
-        [self addSubview:self.statusLabel];
+    if (self.statusLabel.superview) {
+        [self.statusLabel removeFromSuperview];
+    }
+    if (self.activityView.superview) {
+        [self.activityView removeFromSuperview];
     }
     
-
+    // Set view type views
+    switch (viewType) {
+        case GSProgressHUDViewTypeIndicator:
+            if (!self.activityView.superview) {
+                [self addSubview:self.activityView];
+            }
+            break;
+        case GSProgressHUDViewTypeIcon:
+            if (!self.statusIcon.superview) {
+                [self addSubview:self.statusIcon];
+            }
+            if (!self.statusLabel.superview) {
+                [self addSubview:self.statusLabel];
+            }
+            break;
+    }
+    
+    // Show view
+    if (self.alpha != 1.f) {
+        
+        self.transform = CGAffineTransformScale(self.transform, .7f, .7f);
+        
+        [UIView animateWithDuration:0.15
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             self.transform = CGAffineTransformScale(self.transform, 1.f/.7f, 1.f/.7f);
+                             self.alpha = 1.f;
+                         } completion:nil];
+    }
 }
 
 - (void)popImage:(UIImage *)image withStatus:(NSString *)status {
@@ -127,26 +160,12 @@ static CGFloat const kHUDHeight = 66.f;
 }
 
 - (void)showImage:(UIImage *)image withStatus:(NSString *)status {
-    if (![GSProgressHUD isVisible]) {
-        [GSProgressHUD show];
-    }
     
     self.statusIcon.image = image;
     self.statusLabel.text = status;
     
-    if (self.alpha != 1.f) {
-        
-        self.transform = CGAffineTransformScale(self.transform, .7f, .7f);
-        
-        [UIView animateWithDuration:0.15
-                              delay:0
-                            options:UIViewAnimationOptionCurveEaseOut
-                         animations:^{
-                             self.transform = CGAffineTransformScale(self.transform, 1.f/.7f, 1.f/.7f);
-                             self.alpha = 1.f;
-                         } completion:^(BOOL finished) {
-                             
-                         }];
+    if (![GSProgressHUD isVisible]) {
+        [self showType:GSProgressHUDViewTypeIcon];
     }
 }
 
@@ -187,6 +206,15 @@ static CGFloat const kHUDHeight = 66.f;
         _statusLabel.adjustsFontSizeToFitWidth = YES;
     }
     return _statusLabel;
+}
+
+- (UIActivityIndicatorView *)activityView {
+    if (!_activityView) {
+        _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        _activityView.center = CGPointMake(kHUDWidth/2.f, kHUDHeight/2.f);
+        [_activityView startAnimating];
+    }
+    return _activityView;
 }
 
 @end
