@@ -2,9 +2,8 @@
 
 GSProgressHUD is a simple lightweight progress HUD based on [SVProgressHUD](https://github.com/samvermette/SVProgressHUD) for displaying information to the user.
 
-![Screenshot1](https://dl-web.dropbox.com/get/shared/github/GSProgressHUD/Screen%20Shot%202014-02-17%20at%2012.49.51.png?w=AAAs0oczo3AVnRer5Tp_ILxdrzO6j4CU6rLb8PUe6BQhfQ)
-
-![Screenshot2](https://dl-web.dropbox.com/get/shared/github/GSProgressHUD/Screen%20Shot%202014-02-17%20at%2012.50.14.png?w=AABnDVz8Fg8G0FBXrbdkd9RKzLBwXcbL5LJYOu7iukFcfg)
+![Screenshot1](https://dl.dropboxusercontent.com/u/7865025/github/GSProgressHUD/Screen%20Shot%202014-02-17%20at%2012.49.51.png)
+![Screenshot2](https://dl.dropboxusercontent.com/u/7865025/github/GSProgressHUD/Screen%20Shot%202014-02-17%20at%2012.50.14.png)
 
 
 ## Get started
