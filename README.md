@@ -1,6 +1,6 @@
 # GSProgressHUD
 
-GSProgressHUD is a simple lightweight progress HUD based on [SVProgressHUD](https://github.com/samvermette/SVProgressHUD) for displaying information to the user.
+GSProgressHUD is a simple lightweight progress HUD for displaying information to the user.
 
 ![Screenshot1](https://dl.dropboxusercontent.com/u/7865025/github/GSProgressHUD/Screen%20Shot%202014-02-17%20at%2012.49.51.png)
 ![Screenshot2](https://dl.dropboxusercontent.com/u/7865025/github/GSProgressHUD/Screen%20Shot%202014-02-17%20at%2012.50.14.png)
@@ -43,6 +43,10 @@ if ([GSProgressHUD isVisible]) {
 ```objective-c
 [GSProgressHUD popImage:[UIImage imageNamed:@"check"] withStatus:@"Working..."];
 ```
+
+## Credits
+
+GSStatusBar is partly based upon [SVProgressHUD](https://github.com/samvermette/SVProgressHUD)
 
 ## Contact
 
