@@ -43,6 +43,9 @@ static CGFloat const kHUDHeight = 66.f;
 @implementation GSProgressHUD
 
 
+#pragma mark -
+#pragma mark Class methods
+
 + (GSProgressHUD *)sharedView {
     static GSProgressHUD *sharedView;
     
@@ -73,6 +76,10 @@ static CGFloat const kHUDHeight = 66.f;
 + (BOOL)isVisible {
     return ([GSProgressHUD sharedView].alpha == 1.f);
 }
+
+
+#pragma mark -
+#pragma mark Instance methods
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -184,6 +191,10 @@ static CGFloat const kHUDHeight = 66.f;
                      }];
     
 }
+
+
+#pragma mark -
+#pragma mark Properties methods
 
 - (UIImageView *)statusIcon {
     if (!_statusIcon) {
