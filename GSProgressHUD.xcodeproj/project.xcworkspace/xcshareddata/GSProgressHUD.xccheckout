@@ -10,29 +10,29 @@
 	<string>GSProgressHUD</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>56195EBD-3F07-4CB5-9EFB-B89BF0D164A5</key>
+		<key>B3E3868CAC83B190E5B73B14B3544E00FC883F6B</key>
 		<string>ssh://github.com/GaSaMedia/GSProgressHUD.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>GSProgressHUD.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>56195EBD-3F07-4CB5-9EFB-B89BF0D164A5</key>
+		<key>B3E3868CAC83B190E5B73B14B3544E00FC883F6B</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/GaSaMedia/GSProgressHUD.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>56195EBD-3F07-4CB5-9EFB-B89BF0D164A5</string>
+	<string>B3E3868CAC83B190E5B73B14B3544E00FC883F6B</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>56195EBD-3F07-4CB5-9EFB-B89BF0D164A5</string>
+			<string>B3E3868CAC83B190E5B73B14B3544E00FC883F6B</string>
 			<key>IDESourceControlWCCName</key>
 			<string>GSProgressHUD</string>
 		</dict>
