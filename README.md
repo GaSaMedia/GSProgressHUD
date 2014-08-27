@@ -46,7 +46,7 @@ if ([GSProgressHUD isVisible]) {
 
 ## Credits
 
-GSStatusBar is partly based upon [SVProgressHUD](https://github.com/samvermette/SVProgressHUD)
+GSProgressHUD is partly based upon [SVProgressHUD](https://github.com/samvermette/SVProgressHUD).
 
 ## Contact
 
