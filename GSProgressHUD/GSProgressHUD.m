@@ -222,9 +222,7 @@ static CGFloat const kMargin = 5.f;
             CGSize maxSize = CGSizeMake(300.f, MAXFLOAT);
             CGRect statusLabelRect = [self.statusLabel.text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.statusLabel.font} context:nil];
             
-            
-            CGFloat newWidth = (kDefaultHUDWidth < statusLabelRect.size.width ? statusLabelRect.size.width : kDefaultHUDWidth) - kMargin;
-            
+            CGFloat newWidth = (kDefaultHUDWidth < statusLabelRect.size.width ? statusLabelRect.size.width : kDefaultHUDWidth);
             
             self.statusLabel.frame = CGRectMake(kMargin, kDefaultHUDHeight - 21.f, newWidth, statusLabelRect.size.height);
             
@@ -260,7 +258,7 @@ static CGFloat const kMargin = 5.f;
 - (UILabel *)statusLabel {
     if (!_statusLabel) {
         _statusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _statusLabel.font = [UIFont boldSystemFontOfSize:kStatusFontOfSize];
+        _statusLabel.font = [UIFont systemFontOfSize:kStatusFontOfSize];
         _statusLabel.backgroundColor = [UIColor clearColor];
         _statusLabel.textAlignment = NSTextAlignmentCenter;
         _statusLabel.textColor = [UIColor whiteColor];
