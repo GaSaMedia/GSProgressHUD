@@ -199,7 +199,7 @@
 static CGFloat const kDefaultHUDWidth = 70.f;
 static CGFloat const kDefaultHUDHeight = 66.f;
 static CGFloat const kStatusFontOfSize = 12.f;
-static CGFloat const kMargin = 5.f;
+static CGFloat const kMargin = 10.f;
 
 - (void)setHUDSizesForViewType:(GSProgressHUDViewType)viewType {
     CGRect backgroundRect = self.frame;
@@ -220,22 +220,27 @@ static CGFloat const kMargin = 5.f;
 
             // Calculate label size
             CGSize maxSize = CGSizeMake(300.f, MAXFLOAT);
-            CGRect statusLabelRect = [self.statusLabel.text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.statusLabel.font} context:nil];
+            CGRect statusLabelRect = [self.statusLabel.text boundingRectWithSize:maxSize
+                                                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                                                      attributes:@{
+                                                                                   NSFontAttributeName:self.statusLabel.font
+                                                                                   }
+                                                                         context:nil];
             
-            CGFloat newWidth = (kDefaultHUDWidth < statusLabelRect.size.width ? statusLabelRect.size.width : kDefaultHUDWidth);
+            // Calculate background size
+            CGFloat newBackgroundWidth = ((kDefaultHUDWidth - (kMargin * 2.f)) < statusLabelRect.size.width ? (statusLabelRect.size.width + (kMargin * 2.f)) : kDefaultHUDWidth);
             
-            self.statusLabel.frame = CGRectMake(kMargin, kDefaultHUDHeight - 21.f, newWidth, statusLabelRect.size.height);
+            backgroundRect.size.width = newBackgroundWidth;
+            
+            self.frame = backgroundRect;
+            
+            // Set label size
+            self.statusLabel.frame = CGRectMake(kMargin, kDefaultHUDHeight - 21.f, statusLabelRect.size.width, statusLabelRect.size.height);
             
             // Calculate icon size
             self.statusIcon.frame = CGRectMake(15.f, (kDefaultHUDHeight/2.f)-17.f, 20.f, 20.f);
             self.statusIcon.center = CGPointMake(self.statusLabel.center.x, self.statusIcon.center.y);
             
-            // Calculate background size
-            CGFloat newBackgroundWidth = (kDefaultHUDWidth < statusLabelRect.size.width ? statusLabelRect.size.width : kDefaultHUDWidth) + (kMargin * 2.f);
-            
-            backgroundRect.size.width = newBackgroundWidth;
-            
-            self.frame = backgroundRect;
             
             break;
     }
