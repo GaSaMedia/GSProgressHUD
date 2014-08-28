@@ -200,6 +200,9 @@ static CGFloat const kDefaultHUDWidth = 70.f;
 static CGFloat const kDefaultHUDHeight = 66.f;
 static CGFloat const kStatusFontOfSize = 12.f;
 static CGFloat const kMargin = 10.f;
+static CGFloat const kMarginBottom = 8.f;
+static CGFloat const kMarginTop = 12.f;
+static CGFloat const kGolden = 1.61803398875;
 
 - (void)setHUDSizesForViewType:(GSProgressHUDViewType)viewType {
     CGRect backgroundRect = self.frame;
@@ -229,7 +232,7 @@ static CGFloat const kMargin = 10.f;
             
             // Calculate background size
             CGFloat newBackgroundWidth = ((kDefaultHUDWidth - (kMargin * 2.f)) < statusLabelRect.size.width ? (statusLabelRect.size.width + (kMargin * 2.f)) : kDefaultHUDWidth);
-            CGFloat newBackgroundHeight = (kDefaultHUDWidth == newBackgroundWidth ? newBackgroundWidth / 1.61803398875 : kDefaultHUDHeight);
+            CGFloat newBackgroundHeight = (kDefaultHUDWidth == newBackgroundWidth ? newBackgroundWidth / kGolden : kDefaultHUDHeight);
             
             backgroundRect.size.width = newBackgroundWidth;
             backgroundRect.size.height = newBackgroundHeight;
@@ -237,10 +240,11 @@ static CGFloat const kMargin = 10.f;
             self.frame = backgroundRect;
             
             // Set label size
-            self.statusLabel.frame = CGRectMake(kMargin, kDefaultHUDHeight - 21.f, statusLabelRect.size.width, statusLabelRect.size.height);
+            self.statusLabel.frame = CGRectMake(kMargin, kDefaultHUDHeight - (statusLabelRect.size.height + kMarginBottom), statusLabelRect.size.width, statusLabelRect.size.height);
             
             // Calculate icon size
-            self.statusIcon.frame = CGRectMake(15.f, (kDefaultHUDHeight/2.f)-17.f, 20.f, 20.f);
+            CGFloat statusIconSize = (newBackgroundHeight / kGolden) / kGolden;
+            self.statusIcon.frame = CGRectMake(15.f, kMarginTop, statusIconSize, statusIconSize);
             self.statusIcon.center = CGPointMake(self.statusLabel.center.x, self.statusIcon.center.y);
             
             break;
@@ -264,7 +268,7 @@ static CGFloat const kMargin = 10.f;
 - (UILabel *)statusLabel {
     if (!_statusLabel) {
         _statusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _statusLabel.font = [UIFont systemFontOfSize:kStatusFontOfSize];
+        _statusLabel.font = [UIFont boldSystemFontOfSize:kStatusFontOfSize];
         _statusLabel.backgroundColor = [UIColor clearColor];
         _statusLabel.textAlignment = NSTextAlignmentCenter;
         _statusLabel.textColor = [UIColor whiteColor];
