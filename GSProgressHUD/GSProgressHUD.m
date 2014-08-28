@@ -199,7 +199,7 @@
 static CGFloat const kDefaultHUDWidth = 70.f;
 static CGFloat const kDefaultHUDHeight = 66.f;
 static CGFloat const kStatusFontOfSize = 12.f;
-static CGFloat const kMargin = 5.f;
+static CGFloat const kMargin = 10.f;
 
 - (void)setHUDSizesForViewType:(GSProgressHUDViewType)viewType {
     CGRect backgroundRect = self.frame;
@@ -220,26 +220,28 @@ static CGFloat const kMargin = 5.f;
 
             // Calculate label size
             CGSize maxSize = CGSizeMake(300.f, MAXFLOAT);
-            CGRect statusLabelRect = [self.statusLabel.text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.statusLabel.font} context:nil];
-            
-            
-            CGFloat newWidth = (kDefaultHUDWidth < statusLabelRect.size.width ? statusLabelRect.size.width : kDefaultHUDWidth) - kMargin;
-            
-            
-            self.statusLabel.frame = CGRectMake(kMargin, kDefaultHUDHeight - 21.f, newWidth, statusLabelRect.size.height);
-            
-            // Calculate icon size
-            self.statusIcon.frame = CGRectMake(15.f, (kDefaultHUDHeight/2.f)-17.f, 20.f, 20.f);
-            self.statusIcon.center = CGPointMake(self.statusLabel.center.x, self.statusIcon.center.y);
+            CGRect statusLabelRect = [self.statusLabel.text boundingRectWithSize:maxSize
+                                                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                                                      attributes:@{
+                                                                                   NSFontAttributeName:self.statusLabel.font
+                                                                                   }
+                                                                         context:nil];
             
             // Calculate background size
-            CGFloat newBackgroundWidth = (kDefaultHUDWidth < statusLabelRect.size.width ? statusLabelRect.size.width : kDefaultHUDWidth) + (kMargin * 2.f);
-            CGFloat newBackgroundHeight = ((kDefaultHUDWidth + (kMargin * 2.f)) == newBackgroundWidth ? kDefaultHUDHeight : newBackgroundWidth / 1.61803398875);
+            CGFloat newBackgroundWidth = ((kDefaultHUDWidth - (kMargin * 2.f)) < statusLabelRect.size.width ? (statusLabelRect.size.width + (kMargin * 2.f)) : kDefaultHUDWidth);
+            CGFloat newBackgroundHeight = (kDefaultHUDWidth == newBackgroundWidth ? newBackgroundWidth / 1.61803398875 : kDefaultHUDHeight);
             
             backgroundRect.size.width = newBackgroundWidth;
             backgroundRect.size.height = newBackgroundHeight;
             
             self.frame = backgroundRect;
+            
+            // Set label size
+            self.statusLabel.frame = CGRectMake(kMargin, kDefaultHUDHeight - 21.f, statusLabelRect.size.width, statusLabelRect.size.height);
+            
+            // Calculate icon size
+            self.statusIcon.frame = CGRectMake(15.f, (kDefaultHUDHeight/2.f)-17.f, 20.f, 20.f);
+            self.statusIcon.center = CGPointMake(self.statusLabel.center.x, self.statusIcon.center.y);
             
             break;
     }
@@ -262,7 +264,7 @@ static CGFloat const kMargin = 5.f;
 - (UILabel *)statusLabel {
     if (!_statusLabel) {
         _statusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _statusLabel.font = [UIFont boldSystemFontOfSize:kStatusFontOfSize];
+        _statusLabel.font = [UIFont systemFontOfSize:kStatusFontOfSize];
         _statusLabel.backgroundColor = [UIColor clearColor];
         _statusLabel.textAlignment = NSTextAlignmentCenter;
         _statusLabel.textColor = [UIColor whiteColor];
