@@ -234,8 +234,10 @@ static CGFloat const kMargin = 5.f;
             
             // Calculate background size
             CGFloat newBackgroundWidth = (kDefaultHUDWidth < statusLabelRect.size.width ? statusLabelRect.size.width : kDefaultHUDWidth) + (kMargin * 2.f);
+            CGFloat newBackgroundHeight = ((kDefaultHUDWidth + (kMargin * 2.f)) == newBackgroundWidth ? kDefaultHUDHeight : newBackgroundWidth / 1.61803398875);
             
             backgroundRect.size.width = newBackgroundWidth;
+            backgroundRect.size.height = newBackgroundHeight;
             
             self.frame = backgroundRect;
             
