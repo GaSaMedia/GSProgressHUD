@@ -43,7 +43,7 @@
         return;
     }
     
-    [GSProgressHUD showImage:[UIImage imageNamed:@"check"] withStatus:@"Working..."];
+    [GSProgressHUD showImage:[UIImage imageNamed:@"check"] withStatus:@"This is Working..."];
     [showBtn setTitle:@"Hide" forState:UIControlStateNormal];
 }
 

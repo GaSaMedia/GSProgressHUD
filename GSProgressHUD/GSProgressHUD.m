@@ -24,9 +24,6 @@
 #import <QuartzCore/QuartzCore.h>
 
 
-static CGFloat const kHUDWidth = 70.f;
-static CGFloat const kHUDHeight = 66.f;
-
 @interface GSProgressHUD ()
 
 @property(nonatomic, strong) UIImageView *statusIcon;
@@ -37,6 +34,8 @@ static CGFloat const kHUDHeight = 66.f;
 - (void)dismiss;
 - (void)popImage:(UIImage *)image withStatus:(NSString *)status;
 - (void)showImage:(UIImage *)image withStatus:(NSString *)status;
+
+- (void)setHUDSizesForViewType:(GSProgressHUDViewType)viewType;
 
 @end
 
@@ -51,7 +50,7 @@ static CGFloat const kHUDHeight = 66.f;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedView = [[GSProgressHUD alloc] initWithFrame:CGRectMake(0.f, 0.f, kHUDWidth, kHUDHeight)];
+        sharedView = [[GSProgressHUD alloc] initWithFrame:CGRectMake(0.f, 0.f, kDefaultHUDWidth, kDefaultHUDHeight)];
         sharedView.currentHUDType = GSProgressHUDViewTypeIndicator;
     });
     return sharedView;
@@ -111,8 +110,6 @@ static CGFloat const kHUDHeight = 66.f;
         }
     }
     
-    self.center = CGPointMake(self.superview.frame.size.width/2.f, self.superview.frame.size.height/2.f);
-    
     // Clear previous added views
     if (self.statusIcon.superview) {
         [self.statusIcon removeFromSuperview];
@@ -140,6 +137,9 @@ static CGFloat const kHUDHeight = 66.f;
             }
             break;
     }
+    
+    [self setHUDSizesForViewType:viewType];
+
     
     // Show view
     if (self.alpha != 1.f) {
@@ -194,12 +194,71 @@ static CGFloat const kHUDHeight = 66.f;
 
 
 #pragma mark -
+#pragma mark Size calculation
+
+static CGFloat const kDefaultHUDWidth = 70.f;
+static CGFloat const kDefaultHUDHeight = 66.f;
+static CGFloat const kStatusFontOfSize = 12.f;
+static CGFloat const kMargin = 10.f;
+static CGFloat const kMarginBottom = 8.f;
+static CGFloat const kMarginTop = 12.f;
+static CGFloat const kGolden = 1.61803398875;
+
+- (void)setHUDSizesForViewType:(GSProgressHUDViewType)viewType {
+    CGRect backgroundRect = self.frame;
+    
+    switch (viewType) {
+        case GSProgressHUDViewTypeIndicator:
+            ;
+
+            backgroundRect.size.width = kDefaultHUDWidth;
+            backgroundRect.size.height = kDefaultHUDHeight;
+            
+            self.frame = backgroundRect;
+            
+            _activityView.center = CGPointMake(self.frame.size.width/2.f, self.frame.size.height/2.f);
+            break;
+        case GSProgressHUDViewTypeIcon:
+            ;
+
+            // Calculate label size
+            CGSize maxSize = CGSizeMake(300.f, MAXFLOAT);
+            CGRect statusLabelRect = [self.statusLabel.text boundingRectWithSize:maxSize
+                                                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                                                      attributes:@{
+                                                                                   NSFontAttributeName:self.statusLabel.font
+                                                                                   }
+                                                                         context:nil];
+            
+            // Calculate background size
+            CGFloat newBackgroundWidth = ((kDefaultHUDWidth - (kMargin * 2.f)) < statusLabelRect.size.width ? (statusLabelRect.size.width + (kMargin * 2.f)) : kDefaultHUDWidth);
+            CGFloat newBackgroundHeight = (kDefaultHUDWidth == newBackgroundWidth ? newBackgroundWidth / kGolden : kDefaultHUDHeight);
+            
+            backgroundRect.size.width = newBackgroundWidth;
+            backgroundRect.size.height = newBackgroundHeight;
+            
+            self.frame = backgroundRect;
+            
+            // Set label size
+            self.statusLabel.frame = CGRectMake(kMargin, kDefaultHUDHeight - (statusLabelRect.size.height + kMarginBottom), statusLabelRect.size.width, statusLabelRect.size.height);
+            
+            // Calculate icon size
+            CGFloat statusIconSize = (newBackgroundHeight / kGolden) / kGolden;
+            self.statusIcon.frame = CGRectMake(15.f, kMarginTop, statusIconSize, statusIconSize);
+            self.statusIcon.center = CGPointMake(self.statusLabel.center.x, self.statusIcon.center.y);
+            
+            break;
+    }
+    
+    self.center = CGPointMake(self.superview.frame.size.width/2.f, self.superview.frame.size.height/2.f);
+}
+
+#pragma mark -
 #pragma mark Properties methods
 
 - (UIImageView *)statusIcon {
     if (!_statusIcon) {
-        _statusIcon = [[UIImageView alloc] initWithFrame:CGRectMake(15.f, (kHUDHeight/2.f)-17.f, 20.f, 20.f)];
-        _statusIcon.center = CGPointMake(kHUDWidth/2.f, _statusIcon.center.y);
+        _statusIcon = [[UIImageView alloc] initWithFrame:CGRectZero];
         _statusIcon.backgroundColor = [UIColor clearColor];
         _statusIcon.contentMode = UIViewContentModeScaleAspectFit;
     }
@@ -208,13 +267,11 @@ static CGFloat const kHUDHeight = 66.f;
 
 - (UILabel *)statusLabel {
     if (!_statusLabel) {
-        _statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(5.f, kHUDHeight-21.f, kHUDWidth-5.f, 10.f)];
-        _statusLabel.center = CGPointMake(kHUDWidth/2.f, _statusLabel.center.y);
-        _statusLabel.font = [UIFont boldSystemFontOfSize:10.f];
+        _statusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _statusLabel.font = [UIFont boldSystemFontOfSize:kStatusFontOfSize];
         _statusLabel.backgroundColor = [UIColor clearColor];
         _statusLabel.textAlignment = NSTextAlignmentCenter;
         _statusLabel.textColor = [UIColor whiteColor];
-        _statusLabel.adjustsFontSizeToFitWidth = YES;
     }
     return _statusLabel;
 }
@@ -222,7 +279,6 @@ static CGFloat const kHUDHeight = 66.f;
 - (UIActivityIndicatorView *)activityView {
     if (!_activityView) {
         _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        _activityView.center = CGPointMake(kHUDWidth/2.f, kHUDHeight/2.f);
         [_activityView startAnimating];
     }
     return _activityView;
