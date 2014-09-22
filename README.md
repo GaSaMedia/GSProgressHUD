@@ -1,5 +1,7 @@
 # GSProgressHUD
 
+[![Platform](http://img.shields.io/cocoapods/p/GSProgressHUD.svg)](http://cocoadocs.org/docsets/GSProgressHUD)
+
 GSProgressHUD is a simple lightweight progress HUD for displaying information to the user.
 
 ![Screenshot1](https://dl.dropboxusercontent.com/u/7865025/github/GSProgressHUD/Screen%20Shot%202014-02-17%20at%2012.49.51.png)
